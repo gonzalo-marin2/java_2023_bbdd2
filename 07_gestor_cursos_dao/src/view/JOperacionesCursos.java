@@ -39,7 +39,7 @@ public class JOperacionesCursos extends JFrame {
 	 */
 	public JOperacionesCursos() {
 		setTitle("Cursos");
-		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		setBounds(100, 100, 450, 300);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
@@ -70,5 +70,13 @@ public class JOperacionesCursos extends JFrame {
 			}
 		});
 		mnNewMenu.add(MenuConsulta);
+		
+		JMenuItem MenuEliminar = new JMenuItem("Eliminar alumno");
+		MenuEliminar.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				new JEliminar();
+			}
+		});
+		mnNewMenu.add(MenuEliminar);
 	}
 }

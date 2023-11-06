@@ -2,6 +2,8 @@ package service;
 
 import java.util.List;
 
+import javax.swing.JOptionPane;
+
 import dao.AlumnosDao;
 import dao.CursosDao;
 import dao.CursosJsonDao;
@@ -42,6 +44,16 @@ public class FormacionService {
 		return alumnosDao.alumnos(idCurso);*/
 		
 		return idCurso==0?alumnosDao.alumnos():alumnosDao.alumnos(idCurso);
+	}
+	
+	//devuelve falso sino existe o ha fallado la eliminación
+	//devuelve verdadero si se ha podido eliminar de la base de datos
+	public boolean eliminarAlumno(String dni) {
+		var alumnosDao=new AlumnosDao();
+		if(!alumnosDao.existeAlumno(dni)) {
+			return false;//no existe alumno
+		}
+		return alumnosDao.eliminarAlumno(dni);
 	}
 	
 

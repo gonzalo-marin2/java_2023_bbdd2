@@ -10,14 +10,11 @@ import java.util.List;
 
 import model.Alumno;
 import model.Curso;
-
+import static helpers.ConnectionLocator.*;
 public class CursosDao {
-	String cadenaCon="jdbc:mysql://localhost:3306/formacion";
-	String user="root";
-	String pwd="root";
-	
+
 	public boolean existeCurso(int idCurso) {
-		try(Connection con=DriverManager.getConnection(cadenaCon,user,pwd);){
+		try(Connection con=getConnection()){//al tener importados los elementos estáticos, no necesitamos poner primero la clase
 			String sql="select * from cursos where idCurso=?";
 			PreparedStatement ps=con.prepareStatement(sql);
 			ps.setInt(1, idCurso);
@@ -31,7 +28,7 @@ public class CursosDao {
 	}
 	
 	public boolean guardarCurso(Curso curso) {
-		try(Connection con=DriverManager.getConnection(cadenaCon, user, pwd);){
+		try(Connection con=getConnection()){
 			//instrucción sql parametrizada, las interrogantes son parámetros
 			String sql="insert into cursos (idCurso,curso,duracion,precio) values (?,?,?,?) ";
 			//se crea el PreparedStatement a partir de la sql
@@ -53,7 +50,7 @@ public class CursosDao {
 	
 	public List<Curso> cursos() {
 		List<Curso> cursos=new ArrayList<>();
-		try(Connection con=DriverManager.getConnection(cadenaCon, user, pwd);){
+		try(Connection con=getConnection()){
 			String sql="select * from cursos";
 			PreparedStatement ps=con.prepareStatement(sql);
 			ResultSet rs=ps.executeQuery();
