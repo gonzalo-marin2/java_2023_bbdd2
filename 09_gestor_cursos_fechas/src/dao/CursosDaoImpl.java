@@ -79,8 +79,10 @@ public class CursosDaoImpl implements CursosDao {
 	public List<Curso> buscarCursos(LocalDate fInicio, LocalDate fFin){
 		List<Curso> cursos=new ArrayList<>();
 		try(Connection con=getConnection()){
-			String sql="select * from cursos where fechaInicio<=? and fechaInicio>=?";
+			String sql="select * from cursos where fechaInicio between ? and ?";
 			PreparedStatement ps=con.prepareStatement(sql);
+			ps.setDate(1, Date.valueOf(fInicio));
+			ps.setDate(2, Date.valueOf(fFin));
 			ResultSet rs=ps.executeQuery();
 			while(rs.next()) {
 				cursos.add(new Curso(rs.getInt("idCurso"),
